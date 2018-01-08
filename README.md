@@ -1,4 +1,4 @@
-# Hyouman Web Application
+# Hyouman - Web Application
 
 A crowd sourcing based fund-raiser application to provide a secure online platform for users to either raise funds for a cause or donate for a cause.
 
