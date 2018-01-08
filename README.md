@@ -7,9 +7,10 @@ A crowd sourcing based fund-raiser application to provide a secure online platfo
 1. Spring MVC
 2. Restful API
 3. Hibernate
-4. MySQL
-5. JWT Authentication
+4. JWT Authentication
 ### Client
 1. Angular JS
 2. JQuery
 3. Bootstrap 3
+### Database
+1. MySQL
