@@ -1,0 +1,31 @@
+<!-- CONTAINER -->
+<div class="container center-block" ng-controller="programsController" ng-init="init()">
+
+	<!-- Page Heading -->
+	<div class="row">
+		<h1 class="page-header">Programs</h1>
+	</div>
+	<!-- /.row -->
+	
+	<!-- Project -->
+	<p ng-show="programs == ''">No programs are available.</p>
+	<div ng-repeat="program in programs | filter : {status : 'active'}">
+		<div class="row">
+			<div class="col-md-8">
+				<img class="img-responsive" style="width: 100%; height:auto; max-height: 300px" alt="{{program.title}} cover picture" 
+				ng-init="src = (program.picture != null) ? program.picture : 'https://placehold.it/600x300'"
+				src="{{src}}">
+			</div>
+			<div class="col-md-4">
+				<h2>{{program.title}}<br/><small>{{program.subTitle}}</small></h2>
+				<p>{{program.description}}</p>
+				<a class="btn btn-primary" href="#program/{{program.id}}">View Stories</a>
+			</div>
+			<hr/>
+		</div>
+		<hr/>
+	</div>
+	<!-- /.row -->
+</div>
+<!-- /.container -->
+

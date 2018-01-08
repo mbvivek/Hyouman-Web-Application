@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 24, 2017 1:11:45 AM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="org.hyouman.entities.Donation" table="donation" catalog="hyouman" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="creditCard" class="org.hyouman.entities.CreditCard" fetch="select">
+            <column name="cardId" />
+        </many-to-one>
+        <many-to-one name="story" class="org.hyouman.entities.Story" fetch="select">
+            <column name="storyId" />
+        </many-to-one>
+        <many-to-one name="user" class="org.hyouman.entities.User" fetch="select">
+            <column name="userEmail" length="100" not-null="true" />
+        </many-to-one>
+        <property name="amount" type="java.lang.Double">
+            <column name="amount" precision="22" scale="0" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="20" />
+        </property>
+        <property name="initiatedDate" type="string">
+            <column name="initiatedDate" length="20" />
+        </property>
+        <property name="completedDate" type="string">
+            <column name="completedDate" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

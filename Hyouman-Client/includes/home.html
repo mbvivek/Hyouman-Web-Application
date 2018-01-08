@@ -1,0 +1,115 @@
+
+<script>
+$('.carousel').carousel();
+</script>
+
+<!-- CONTAINER -->
+<div class="container-fluid" style="margin-top:50px; background: #111;" ng-init="init()">
+
+	<!-- CAROUSEL -->
+	<div class="row carousal-container">
+		<!-- Indicators -->
+		<div id="mainCarousel" class="carousel slide" data-ride="carousel">
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<!-- image size 1400 px x 500 px -->
+					<img src="images/carousel-1.jpg" alt="">
+				</div>
+				<div class="item">
+					<img src="images/carousel-2.jpg" alt="">
+				</div>
+				<div class="item">
+					<img src="images/carousel-3.jpg" alt="">
+				</div>
+				<div class="item">
+					<img src="images/carousel-4.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="main-text text-center">
+			<h2>
+				<b>YOU</b> have the <b>POWER</b> to make this world a better place.
+
+			</h2>
+				<h4>Every cause has a story. Which one do you care about?</h4>
+				<a class="btn btn-primary" href="#programs">Let's Get Started</a>
+		</div>
+	</div>
+
+	<!-- INFO PANELS -->
+	<div class="row">
+		<div class="info-panel col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<b> {{programs.length}} </b>
+			<p>Programs</p>
+		</div>
+		<div class="info-panel col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<b> {{stories.length}} </b>
+			<p>Families Benifitted</p>
+		</div>
+		<div class="info-panel col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<b> {{donations.length}} </b>
+			<p>Supporters</p>
+		</div>
+		<div class="info-panel col-lg-3 col-md-3 col-sm-6 col-xs-12">
+			<b> {{totalDonations | currency:"$":0}} </b>
+			<p>Fund Raised</p>
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<h2 style="color: #ddd;">Our Programs</h2>
+		<br />
+	</div>
+	<div class="row" style="height: 300px;">
+		<div class="programs col-lg-6 col-md-6 col-sm-12 col-sm-12"
+			style="background-image: url('images/program-education.jpg')">
+			<div class="carousel-caption">
+				<h2>Rural Education</h2>
+				<p>Every child has the right to education. You can make it
+					happen.</p>
+				<a class="btn btn-primary" href="#">View Stories</a>
+			</div>
+		</div>
+		<div class="programs col-lg-6 col-md-6 col-sm-12 col-sm-12"
+			style="background-image: url('images/program-oldage.jpg')">
+			<div class="carousel-caption">
+				<h2>Old Age</h2>
+				<p>Life goes a full circle. What you give will always come back.</p>
+				<a class="btn btn-primary" href="#">View Stories</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" style="height: 300px;">
+		<div class="programs col-lg-6 col-md-6 col-sm-12 col-sm-12"
+			style="background-image: url('images/program-pet.jpg')">
+			<div class="carousel-caption">
+				<h2>Animal Welfare</h2>
+				<p>Because all lives matter.</p>
+				<a class="btn btn-primary" href="#">View Stories</a>
+			</div>
+		</div>
+		<div class="programs col-lg-6 col-md-6 col-sm-12 col-sm-12"
+			style="background-image: url('images/program-disaster.jpg')">
+			<div class="carousel-caption">
+				<h2>Disaster Mitigation</h2>
+				<p>You can't stop mother nature, but you sure be human.</p>
+				<a class="btn btn-primary" href="#">View Stories</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="row main-text">
+		<h2>
+			Learn more about our causes. Hear our stories.<br />See who needs
+			help around you.
+		</h2>
+		<a class="btn btn-primary" href="#">Get Started</a>
+	</div>
+
+</div>
+

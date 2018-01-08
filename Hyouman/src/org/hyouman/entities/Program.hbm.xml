@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 24, 2017 1:11:45 AM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="org.hyouman.entities.Program" table="program" catalog="hyouman" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="1000" />
+        </property>
+        <property name="subTitle" type="string">
+            <column name="subTitle" length="1000" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="2500" />
+        </property>
+        <property name="picture" type="binary">
+            <column name="picture" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
+        </property>
+        <set name="stories" table="story" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="programId" />
+            </key>
+            <one-to-many class="org.hyouman.entities.Story" />
+        </set>
+    </class>
+</hibernate-mapping>

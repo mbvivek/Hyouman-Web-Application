@@ -1,0 +1,113 @@
+<!-- CONTAINER -->
+<div class="container-fluid" ng-controller="userStoriesController" ng-init="initUserStories()" >
+    
+    <h2>My Stories</h2>
+    <hr/>
+    <h4>Looking to start a fundraiser?</h4>
+    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#addProgramCollapse" 
+        ng-click="initAddProgram()">
+        <i class="fa fa-plus" aria-hidden="true"></i> 
+        Create
+    </button>
+    <div class="collapse" id="addProgramCollapse">
+        <br/>
+        <div class="well">
+            <p ng-show="programs == ''">Sorry, no <b>program</b> is available to base your story on. Please contact the administrator.</p>
+            <form class="form" name="addStoryForm" ng-hide="programs == ''"
+                ng-submit="addStoryForm.$valid && addStory(newStory)">
+                <div class="form-group form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" ng-model="newStory.title" required/>
+                </div>
+                <div class="form-group">
+                    <label>Sub Title</label>
+                    <input type="text" class="form-control" name="subTitle" ng-model="newStory.subTitle" required/>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3" name="description" ng-model="newStory.description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Program</label>
+                    <select class="form-control" ng-model="selectedProgram" ng-options="program.title for program in programs" required>
+                    </select>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-6 col-md-6">
+                        <label>Target Amount (USD)</label>
+                        <input type="number" min="0" max="10000" step="1" class="form-control" ng-model="newStory.targetAmount" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <label>Expenditure per Day (USD)</label>
+                        <input type="number" min="0" max="10000" step="1" class="form-control" ng-model="newStory.expensePerDay" required>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-6 col-md-6">
+                        <label>Start Date</label>
+                        <input type="date" class="form-control" ng-model="newStory.startDate" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <label>End Date</label>
+                        <input type="date" class="form-control" ng-model="newStory.endDate" required>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-6 col-md-6">
+                        <label>Cover Picture</label>
+                        <input type="file" accept="image/*" class="form-control" fileread="newStory.picture" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6" ng-hide="newStory.picture == null || newStory.picture == ''">
+                        <label>Preview</label>
+                        <img src="{{newStory.picture}}" width="100%" height="auto" style="max-height: 400px"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Create</button>
+                    <button class="btn btn-default" type="reset" ng-click="newStory.picture=''">Reset</button>
+                </div>
+                <div class="form-group text-center">
+                    <p id="message">{{message}}</p>
+                    <p id="error">{{error}}</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr/>
+    <p ng-show="userStories == null || userStories == ''">Seems like you don't own any stories. Why not create one if it's for a good cause?</p>
+    <table class="table table-bordered table-striped text-center" ng-hide="userStories == null || userStories == ''">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Sub Title</th>
+            <th>Cover Picture</th>
+            <th>Target Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status & Actions</th>
+        </tr>
+        <tbody>
+            <tr ng-repeat="story in userStories">
+                <td>{{$index}}</td>
+                <td>{{story.title}}</td>
+                <td>{{story.subTitle}}</td>
+                <td>
+                    <img src="{{story.picture}}" width="150px" height="auto" 
+                    alt="{{story.title}} cover picture">
+                </td>
+                <td>{{story.targetAmount}}</td>
+                <td>{{story.startDate}}</td>
+                <td>{{story.endDate}}</td>
+                <td class="text-center">
+                    {{story.status | uppercase}} <br/>
+                    <a href="#story/{{story.id}}" class="btn btn-link">
+                        <i class="fa fa-search" aria-hidden="true"></i> View 
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<!-- /.container -->

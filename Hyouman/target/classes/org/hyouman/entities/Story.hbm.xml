@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 24, 2017 1:10:47 AM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="org.hyouman.entities.Story" table="story" catalog="hyouman" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="program" class="org.hyouman.entities.Program" fetch="select">
+            <column name="programId" />
+        </many-to-one>
+        <many-to-one name="user" class="org.hyouman.entities.User" fetch="select">
+            <column name="userEmail" length="100" />
+        </many-to-one>
+        <property name="title" type="string">
+            <column name="title" length="1000" />
+        </property>
+        <property name="subTitle" type="string">
+            <column name="subTitle" length="1000" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="2500" />
+        </property>
+        <property name="targetAmount" type="java.lang.Double">
+            <column name="targetAmount" precision="22" scale="0" />
+        </property>
+        <property name="expensePerDay" type="java.lang.Double">
+            <column name="expensePerDay" precision="22" scale="0" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
+        </property>
+        <property name="startDate" type="string">
+            <column name="startDate" length="45" />
+        </property>
+        <property name="endDate" type="string">
+            <column name="endDate" length="45" />
+        </property>
+        <property name="picture" type="binary">
+            <column name="picture" />
+        </property>
+        <set name="donations" table="donation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="storyId" />
+            </key>
+            <one-to-many class="org.hyouman.entities.Donation" />
+        </set>
+    </class>
+</hibernate-mapping>

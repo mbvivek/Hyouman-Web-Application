@@ -1,0 +1,181 @@
+<!-- Page Content -->
+<div class="container center-block" ng-controller="storyController" ng-init="init()">
+
+	<!-- Portfolio Item Heading -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				{{story.title}} 
+				<br/><small>{{story.subTitle}}</small>
+			</h1>
+		</div>
+	</div>
+	<!-- /.row -->
+
+	<!-- Portfolio Item Row -->
+	<div class="row">
+
+		<div class="col-md-8">
+			<img class="img-responsive" width="auto" height="auto" style="max-height: 300px;" src="{{story.picture}}">
+			<hr />
+			<h3>Description</h3>
+			<p>{{story.description}}</p>
+
+		</div>
+
+		<div class="col-md-4">
+
+			<div class="row text-center">
+				<div class="col-md-6">
+					<h4>Raised</h4>
+					<h2>{{totalDonatedAmount}}$</h2>
+				</div>
+				<div class="col-md-6">
+					<h4>Goal</h4>
+					<h2>{{story.targetAmount}}$</h2>
+				</div>
+			</div>
+			<hr />
+			
+			<div class="row text-center">
+				<div class="col-md-6">
+					<h4>Donors</h4>
+					<h2>{{totalDonors}}</h2>
+				</div>
+				<div class="col-md-6">
+					<h4>Expires On</h4>
+					<h2>{{story.endDate.substring(3,6)}} <small>{{story.endDate.substring(0,3)}} {{story.endDate.substring(6,15)}}</small></h2>
+				</div>
+			</div>
+			<hr />
+			
+			<div class="container-fluid">
+				<p ng-show="alreadyDonated">You have already donated to this story.</p>
+				<p ng-show="savedForLater">You have saved this story.</p>
+			</div>
+
+			<div class="row">
+				<div ng-show="alreadyDonated" class="col-md-6 col-sm-6">
+					<a type="button" class="btn btn-primary btn-lg btn-block" ng-click="initDonate()">
+						Donate Again
+					</a>
+				</div>
+				<div ng-hide="alreadyDonated" class="col-md-6 col-sm-6">
+					<a type="button" class="btn btn-primary btn-lg btn-block" ng-click="initDonate()">
+						Donate Now
+					</a>
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<a ng-hide="savedForLater" type="button" class="btn btn-warning btn-lg btn-block" ng-click="saveForLater()">
+						Save for later
+					</a>
+				</div>
+			</div>
+
+			<hr/>
+
+			<div class="media">
+				<div class="media-left media-middle">
+					<img class="img-responsive" width="50px" height="50px" alt="beneficiary picture" 
+						ng-init="src = (beneficiary.picture != null) ? beneficiary.picture : 'http://placehold.it/600x400'"
+						src="{{src}}">
+				</div>
+				<div class="media-body">
+					<p>Beneficiary</p>
+					<h4 class="media-heading">{{beneficiary.firstName}} {{beneficiary.lastName}}</h4>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /.row -->
+	<hr>
+
+	<!-- DONATE MODAL -->
+    <div class="modal fade" id="donateModal" tabindex="-1"
+    role="dialog" aria-labelledby="donateModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content" ng-init="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Donate</h4>
+                    <p>donationData.status = {{donationData.status}}</p>
+                </div>
+            	<div class="modal-body text-center" ng-show="donationData.status == 'completed'">
+					<h3><b>Thank you!</b></h3>
+					<p>We are so grateful to you for your generous donation of ${{donationData.amount}}.</p>
+					<br/>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
+				</div>
+                <div class="modal-body" ng-hide="donationData.status == 'completed'">
+                	<p ng-show="userCreditCards == ''">
+                		You have no saved credit cards.<br/>
+                		<a href="" ng-click="navigateToPaymentInfo()">Click here</a> to add one.
+            		</p>
+                	<form name="donateForm" ng-submit="donate(donationData)" ng-hide="userCreditCards == ''">
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+		                    	<label>Select a Card</label>
+		                    	<select class="form-control" ng-model="donationData.creditCard" 
+		                    		ng-options="card.nameOnCard for card in userCreditCards" required>
+		                    	</select>
+		                    	<br/>
+	                    	</div>
+		                </div>
+		                <div align="center">
+							<div class="row">
+								<p>I am willing to pay</p>
+								<ul class="pagination" style="margin-top:0px;">
+									<li><a href="" ng-click="donationData.amount = 5" >$5</a></li>
+									<li><a href="" ng-click="donationData.amount = 10" >$10</a></li>
+									<li><a href="" ng-click="donationData.amount = 15" >$15</a></li>
+									<li><a href="" ng-click="donationData.amount = 20" >$20</a></li>
+									<li><a href="" ng-click="donationData.amount = 25" >$25</a></li>
+									<li><a href="" ng-click="donationData.amount = 50" >$50</a></li>
+								</ul>
+								<p>or bear the expenses of</p>
+								<ul class="pagination" style="margin-top:0px;">
+									<li><a href="" ng-click="donationData.amount = (story.expensePerDay*1)" >1 day
+										<br/><small>${{story.expensePerDay*1}}</small></a>
+									</li>
+									<li><a href="" ng-click="donationData.amount = (story.expensePerDay*2)" >2 days
+										<br/><small>${{story.expensePerDay*2}}</small></a>
+									</li>
+									<li><a href="" ng-click="donationData.amount = (story.expensePerDay*3)" >3 days
+										<br/><small>${{story.expensePerDay*3}}</small></a>
+									</li>
+									<li><a href="" ng-click="donationData.amount = (story.expensePerDay*5)" >5 days
+										<br/><small>${{story.expensePerDay*5}}</small></a>
+									</li>
+									<li><a href="" ng-click="donationData.amount = (story.expensePerDay*7)" >7 days
+										<br/><small>${{story.expensePerDay*7}}</small></a>
+									</li>
+								</ul>
+								<div>
+			                    	<p>or a different amount (USD)</p>
+			                    	<input type="number" min="0" max="10000" step="1" class="form-control" ng-model="donationData.amount" style="width:150px">
+		                    	</div>
+							</div>
+							<br/>
+							<div class="row">
+		                        <button type="submit" class="btn btn-primary" type="submit">Pay</button>
+	                        </div>
+	                    </div>
+		            </form>       
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="message" ng-hide="message == ''">{{message}}</p>
+                    <p id="error" ng-hide="error == ''">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+
+</div>
+<!-- /.container -->

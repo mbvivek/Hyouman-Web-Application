@@ -1,0 +1,21 @@
+<div id="wrapper" class="container-fluid" ng-controller="profileController" ng-init="init()" style="margin-top: 50px;">
+	<!-- Sidebar -->
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li class="sidebar-brand"><a ui-sref=".personalInfo"> Profile </a></li>
+			<li><a ui-sref=".personalInfo">Personal Information</a></li>
+			<li><a ui-sref=".paymentInfo">Payment Information</a></li>
+			<li><a ui-sref=".userDonations">Donations</a></li>
+			<li><a ui-sref=".userStories">Stories</a></li>
+			<li><a ui-sref=".cart">Cart</a></li>
+		</ul>
+	</div>
+	<!-- /#sidebar-wrapper -->
+
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div ui-view></div>
+	</div>
+	<!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->

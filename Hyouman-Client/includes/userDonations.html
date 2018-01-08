@@ -1,0 +1,27 @@
+<div class="container-fluid" ng-controller="userDonationsController" ng-init="initDonationsInfo()">
+    
+    <h2>My Donations</h2>
+    <hr/>
+    <p ng-show="userDonations == null || userDonations == ''">Seems like you haven't donated to any cause yet.</p>
+    <table class="table table-bordered table-striped" ng-hide="userDonations == null || userDonations == ''">
+        <tr>
+            <th>#</th>
+            <th>Story</th>
+            <th>Credit Card Used</th>
+            <th>Donated Amount</th>
+            <th>Initiated Date & Time</th>
+            <th>Completed Date & Time</th>
+        </tr>
+        <tbody>
+            <tr ng-repeat="donation in userDonations | filter : {status : 'completed'}">
+                <td>{{$index}}</td>
+                <td>{{donation.story.title}} <br/><small>{{donation.story.subTitle}}</small></td>
+                <td ng-init="cardEndingWith = donation.creditCard.cardNumber.substring(12,16)">{{donation.creditCard.nameOnCard}} <br/><small>ending with {{cardEndingWith}}</small></td>
+                <td>{{donation.amount | currency}}</td>
+                <td>{{donation.initiatedDate}}</td>
+                <td>{{donation.completedDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

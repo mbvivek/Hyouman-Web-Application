@@ -1,0 +1,9 @@
+Options +FollowSymLinks 
+
+RewriteEngine On
+RewriteBase /base-as-specified-in-base-tag/
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^([a-zA-Z]+)$ #/$1 [NC,L]

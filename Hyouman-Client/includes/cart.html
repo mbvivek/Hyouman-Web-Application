@@ -1,0 +1,95 @@
+<div class="container-fluid" ng-controller="cartController" ng-init="initCart()">
+    
+    <h2>My Cart</h2>
+    <hr/>
+    <p ng-show="cart == null || cart == ''">Seems like you don't have any item in cart.</p>
+    <table class="table table-bordered table-striped text-center" ng-hide="cart == null || cart == ''">
+        <tr>
+            <th>#</th>
+            <th>Story</th>
+            <th>Saved Date & Time</th>
+            <th>Donation Amount</th>
+            <th>Select</th>
+        </tr>
+        <tbody>
+            <tr ng-repeat="item in cart | filter: { story: { status : 'active' }}">
+                <td>{{$index}}</td>
+                <td>{{item.story.title}} <br/><small>{{item.story.subTitle}}</small></td>
+                <td>{{item.initiatedDate}}</td>
+                <td>
+                    <input class="form-control" type="number" ng-init="item.amount = 5" ng-model="item.amount"
+                        ng-change="calcTotalAmount();">
+                </td>
+                <td ng-init="totalAmount = 0">
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="item.checked" ng-change="calcTotalAmount()">
+                        Pay Now</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <h4>Total : <b>{{totalAmount | currency}}</b></h4>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="initDonate()">Pay Now</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- DONATE MODAL -->
+    <div class="modal fade" id="donateFromCartModal" tabindex="-1"
+    role="dialog" aria-labelledby="donateFromCartModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content" ng-init="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Donate</h4>
+                </div>
+                <div class="modal-body text-center" ng-show="donationData.status == 'completed'">
+                    <h3><b>Thank you!</b></h3>
+                    <p>We are so grateful to you for your generous donation of ${{donationData.totalAmount}}.</p>
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+                <div class="modal-body" ng-hide="donationData.status == 'completed' && totalAmount < 1">
+                    <p ng-show="userCreditCards == ''">
+                        You have no saved credit cards.<br/>
+                        <a href="" ng-click="navigateToPaymentInfo()">Click here</a> to add one.
+                    </p>
+                    <form name="donateForm" ng-submit="donate(donationData)" ng-hide="userCreditCards == ''">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <label>Select a Card</label>
+                                <select class="form-control" ng-model="donationData.creditCard" 
+                                    ng-options="card.nameOnCard for card in userCreditCards" required>
+                                </select>
+                                <br/>
+                            </div>
+                        </div>
+                        <div align="center">
+                            <h3>Amount : {{totalAmount | currency}}</h3>
+                            <br/>
+                            <button type="submit" class="btn btn-primary" type="submit">Pay</button>
+                        </div>
+                    </form>       
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="message" ng-hide="message == ''">{{message}}</p>
+                    <p id="error" ng-hide="error == ''">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+
+</div>

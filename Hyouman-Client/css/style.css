@@ -1,0 +1,202 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.email.ng-invalid-required 
+{
+    background-color: red;
+}
+
+.navbar {
+	padding: 0px 10px;
+	margin: 0px;
+	background: #111;
+}
+
+.navbar-nav li a:hover {
+	background-color: #000;
+}
+
+.navbar-nav li a {
+	font-weight: 700;
+}
+
+.container {
+	margin-top: 50px;
+}
+
+.container-fluid {
+	height: 100%;
+}
+
+.main-text {
+	text-align: center;
+	background-color: #ddd;
+	color: #111;
+	padding: 10px;
+	padding-bottom: 25px;
+}
+
+.carousal-container {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.carousel-inner .item img {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+}
+
+.carousel-control.left {
+	background: none;
+}
+
+.carousel-control.right {
+	background: none;
+}
+
+.carousel-control {
+	position: absolute;
+	top: 45%;
+	bottom: 0;
+	left: 0;
+	width: 15%;
+	font-size: auto;
+	color: #fff;
+	text-align: center;
+	opacity: 1;
+	text-shadow: none;
+}
+
+.carousel-control:hover {
+	color: #000;
+}
+
+.carousel-indicators {
+	bottom: -50px;
+}
+
+.carousel-indicators li {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 1px;
+	text-indent: -999px;
+	cursor: pointer;
+	background-color: #000\9;
+	background-color: rgba(0, 0, 0, 0);
+	border: 1px solid #16a085;
+	border-radius: 50%;
+}
+
+.carousel-indicators .active {
+	width: 12px;
+	height: 12px;
+	margin: 0;
+	background-color: #16a085;
+}
+
+.carousel-caption {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	color: #fff;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.info-container {
+	margin: 25px 25px;
+}
+
+.info-panel {
+	text-align: center;
+	padding: 20px;
+	margin: 0px;
+	height: 120px;
+	background-repeat: no-repeat;
+	color: #ddd;
+	background-color: #111;
+}
+
+.info-panel b {
+	font-size: 30px;
+	padding: 10px;
+}
+
+.info-panel p {
+	font-size: 16px;
+	padding: 10px;
+}
+
+.programs {
+	height: 100%;
+	margin: 0px;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+
+.programs .caption {
+	position: relative;
+	right: 0;
+	top: 150px;
+	left: 0;
+	z-index: 10;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: #fff;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#error
+{
+	text-align: center;
+	font-weight: 800;
+	color: #D32F2F;
+	position: relative;
+	animation-name: errorAnimation;
+    animation-duration: 1s;
+}
+
+#message
+{
+	text-align: center;
+	font-weight: 800;
+	color: #1976D2;
+	position: relative;
+	animation-name: errorAnimation;
+    animation-duration: 1s;
+}
+
+@keyframes errorAnimation 
+{
+    10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(5px, 0, 0);
+  }
+}
+
+footer {
+	padding: 20px;
+	background: #111;
+	color: #ddd;
+}

@@ -1,0 +1,125 @@
+<!-- CONTAINER -->
+<div class="container-fluid center-block" ng-controller="manageProgramsController" ng-init="initManagePrograms()">
+	
+	<h2>Manage Programs</h2>
+    <hr/>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#addProgramCollapse" 
+        ng-click="initAddProgram()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add Program
+    </button>
+    <div class="collapse" id="addProgramCollapse">
+        <br/>
+        <div class="well">
+            <form class="form" name="addProgramForm" ng-submit="addProgramForm.$valid && addProgram(newProgram)">
+                <div class="form-group form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" ng-model="newProgram.title" required/>
+                </div>
+                <div class="form-group">
+                    <label>Sub Title</label>
+                    <input type="text" class="form-control" name="subTitle" ng-model="newProgram.subTitle" required/>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3" name="description" ng-model="newProgram.description" required></textarea>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-6 col-md-6">
+                        <label>Cover Picture</label>
+                        <input type="file" accept="image/*" class="form-control" fileread="newProgram.picture" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6" ng-hide="newProgram.picture == null || newProgram.picture == ''">
+                        <label>Preview</label>
+                        <img src="{{newProgram.picture}}" width="100%" height="auto" />
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button class="btn btn-primary" type="submit">Add</button>
+                    <button class="btn btn-default" type="reset" ng-click="newProgram.picture=''">Clear</button>
+                </div>
+                <hr/>
+                <div class="form-group text-center">
+                    <p id="message">{{message}}</p>
+                    <p id="error">{{error}}</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Serial #</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Sub-Title</th>
+                <th>Description</th>
+                <th>Cover Picture</th>
+                <th>No. of Stories</th>
+                <th>Actions</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="program in programs | filter : {status : 'active'} ">
+                    <td>{{$index}}</td>
+                    <td>{{program.id}}</td>
+                    <td>{{program.title}}</td>
+                    <td>{{program.subTitle}}</td>
+                    <td>{{program.description}}</td>
+                    <td>
+                        <img src="{{program.picture}}" width="300px" heigth="auto" 
+                        alt="{{program.title}} cover picture">
+                    </td>
+                    <td>100</td>
+                    <td>
+                        <a class="btn btn-link" data-toggle="modal" data-target="#deleteProgramModal" 
+                            ng-click="initDeleteProgram(program)" style="padding:2px 10px">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Remove
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    
+    <!-- DELETE PROGRAM MODAL -->
+    <div class="modal fade" id="deleteProgramModal" tabindex="-1"
+    role="dialog" aria-labelledby="deleteProgramModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Remove Program</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <h4 class="text-center">Are you sure you want to remove <b>{{programToRemove.title}}</b> program?</h4>
+                    <hr/>
+                    <p>This program currently has</p>
+                        <p>Total Stories : {{programToRemove.totalStories}}</p>
+                        <p>Active Stories : {{programToRemove.activeStories}}</p>
+                        <p>Invalid Stories : {{programToRemove.invalidStories}}</p>
+                        <p>Pending approval Stories: {{programToRemove.pendingStories}}</p>
+                    </ul>
+                    <br/>
+                    <button class="btn btn-primary" ng-click="deleteProgram(programToRemove)">Remove</button>
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="message">{{message}}</p>
+                    <p id="error">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+
+</div>
+<!-- /.container -->
+

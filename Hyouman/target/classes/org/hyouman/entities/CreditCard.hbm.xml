@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 24, 2017 1:10:47 AM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="org.hyouman.entities.CreditCard" table="credit_card" catalog="hyouman" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="org.hyouman.entities.User" fetch="select">
+            <column name="userEmail" length="100" not-null="true" />
+        </many-to-one>
+        <property name="cardNumber" type="string">
+            <column name="cardNumber" length="20" />
+        </property>
+        <property name="nameOnCard" type="string">
+            <column name="nameOnCard" length="250" />
+        </property>
+        <property name="expiryMonth" type="string">
+            <column name="expiryMonth" length="10" />
+        </property>
+        <property name="expiryYear" type="string">
+            <column name="expiryYear" length="10" />
+        </property>
+        <property name="cvv" type="string">
+            <column name="cvv" length="10" />
+        </property>
+        <set name="donations" table="donation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cardId" />
+            </key>
+            <one-to-many class="org.hyouman.entities.Donation" />
+        </set>
+    </class>
+</hibernate-mapping>

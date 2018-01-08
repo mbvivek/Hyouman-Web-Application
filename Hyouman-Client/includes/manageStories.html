@@ -1,0 +1,119 @@
+<!-- CONTAINER -->
+<div class="container-fluid center-block" ng-controller="manageStoriesController" ng-init="initManageStories()">
+	
+	<h2>Manage Stories</h2>
+    <hr/>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>#</th>
+                <th>Program #</th>
+                <th>Title</th>
+                <th>Sub Title</th>
+                <th>Description</th>
+                <th>Cover Picture</th>
+                <th>Target Amount</th>
+                <th>Expense per day</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Beneficiary</th>
+                <th>Status</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="story in stories | filter : { status : '!invalid' }">
+                    <td>{{$index}}</td>
+                    <td>{{story.programId}}</td>
+                    <td>{{story.title}}</td>
+                    <td>{{story.subTitle}}</td>
+                    <td>{{story.description}}</td>
+                    <td>
+                        <img src="{{story.picture}}" width="150px" height="auto" 
+                        alt="{{story.title}} cover picture">
+                    </td>
+                    <td>{{story.targetAmount | currency}}</td>
+                    <td>{{story.expensePerDay | currency}}</td>
+                    <td>{{story.startDate}}</td>
+                    <td>{{story.endDate}}</td>
+                    <td>{{story.userEmail}}</td>
+                    <td>
+                        <p>{{story.status | uppercase}}</p>
+                        <div ng-show="story.status == 'active'">
+                            <a href="#story/{{story.id}}" class="btn btn-link">
+                            <i class="fa fa-search" aria-hidden="true"></i> View </a>
+                        </div>
+                        <div ng-show="story.status == 'pending'">
+                            <a class="btn btn-link" ng-click="initApproveStory(story)">
+                                <i class="fa fa-search" aria-hidden="true"></i> Approve </a>
+                        </div>
+                        <div >
+                            <a class="btn btn-link" ng-click="initDeleteStory(story)">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Delete 
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- APPROVE STORY MODAL -->
+    <div class="modal fade" id="approveStoryModal" tabindex="-1"
+    role="dialog" aria-labelledby="approveStoryModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Approve Story</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form" style="margin: 25px;">
+                        <p>Are you sure you want to approve <b>{{storyToApprove.title}}</b>?</p>
+                        <button type="button" class="btn btn-primary"
+                        ng-click="approveStory(storyToApprove.id)">Approve</button>
+                    </form>
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="error">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+    <!-- DELETE STORY MODAL -->
+    <div class="modal fade" id="deleteStoryModal" tabindex="-1"
+    role="dialog" aria-labelledby="deleteStoryModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Delete Story</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form" style="margin: 25px;">
+                        <p>Are you sure you want to delete <b>{{storyToDelete.title}}</b>?</p>
+                        <button type="button" class="btn btn-primary"
+                        ng-click="deleteStory(storyToDelete.id)">Delete</button>
+                    </form>
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="error">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+</div>
+<!-- /.container -->
+

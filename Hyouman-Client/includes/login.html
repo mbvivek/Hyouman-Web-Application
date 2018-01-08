@@ -1,0 +1,141 @@
+<div style="background:#222;" ng-controller="loginController" ng-init="init()">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+				class="icon-bar"></span> <span class="icon-bar"></span> <span
+				class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#/"><img src="images/logo.png"
+				alt="" height="30px" /></a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="#">Our Journey</a></li>
+				<li><a href="#programs">Programs</a></li>
+				<li><a href="#stories">Stories</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li ng-hide="session.valid"><a class="btn btn-link"
+					data-toggle="modal" data-target="#loginModal">Login</a></li>
+					<li class="dropdown" ng-show="session.valid">
+						<a href="#" target="_blank"
+						class="dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">
+						{{session.user.firstName}} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="text-center"><img
+							class="img-rounded center-block" style="padding: 10px;"
+							width="80%" height="80%" src="{{session.user.picture}}"
+							alt="Profile Picture">
+							<p>
+								<b>{{session.user.firstName}} {{session.user.lastName}}</b>
+							</p></li>
+							<li role="separator" class="divider"></li>
+							<li><a ui-sref="profile.personalInfo">Profile</a></li>
+							<li role="separator" class="divider" ng-show="session.user.admin"></li>
+							<li><a ui-sref="admin.dashboard"  ng-show="session.user.admin">Admin Profile</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="" ng-click="logout()">Logout</a></li>
+						</ul></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+		<!-- Modal -->
+		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+			aria-labelledby="loginModalLabel"
+			style="background: rgba(0, 0, 0, 0.25)">
+			<div class="modal-dialog modal-md" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="clearFields()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 ng-init="modalTitle='Login'">{{modalTitle | uppercase}}</h4>
+					</div>
+					<div class="modal-body text-center">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#login" data-toggle="tab"
+								target="_blank" ng-click="[modalTitle='Login', clearFields()]">Login</a>
+							</li>
+							<li><a href="#signup" data-toggle="tab" target="_blank"
+								ng-click="[modalTitle='Sign Up', clearFields()]">Sign Up</a>
+							</li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane active in" id="login">
+								<form class="form" name="loginForm" ng-submit="loginForm.$valid && login()" style="margin: 25px;">
+									<div class="form-group center-block">
+										<label>Email</label> 
+										<input type="email"
+										class="form-control center-block" style="max-width: 275px;"
+										name="email" ng-model="email" required>
+									</div>
+									<div class="form-group">
+										<label>Password</label> 
+										<input type="password"
+										class="form-control center-block" style="max-width: 275px;"
+										name="password" ng-model="password" required>
+									</div>
+									<button type="submit" class="btn btn-primary">Login</button>
+								</form>
+							</div>
+							<div class="tab-pane fade" id="signup">
+								<form class="signupForm" ng-submit="signup()" style="margin: 25px;">
+									<div class="form-group center-block">
+										<label>First Name</label> <input type="text"
+										class="form-control center-block" style="max-width: 275px;"
+										ng-model="firstName" required>
+									</div>
+									<div class="form-group">
+										<label>Last Name</label> <input type="text"
+										class="form-control center-block" style="max-width: 275px;"
+										ng-model="lastName" required>
+									</div>
+									<div class="form-group center-block">
+										<label>Email</label> <input type="email"
+										class="form-control center-block" style="max-width: 275px;"
+										ng-model="email" required>
+									</div>
+									<div class="form-group">
+										<label>Password</label> <input type="password"
+										class="form-control center-block" style="max-width: 275px;"
+										ng-model="password" required>
+									</div>
+									<div class="form-group">
+										<label>Phone</label> <input type="tel"
+										class="form-control center-block" style="max-width: 275px;"
+										ng-model="phone" required>
+									</div>
+									<div class="form-group center-block">
+										<label>Date of Birth</label> <input type="date"
+										class="form-control center-block" style="max-width: 275px;"
+										ng-model="dob" required>
+									</div>
+									<button type="submit" class="btn btn-primary">Sign Up</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- MODAL FOOTER -->
+					<div class="modal-footer">
+						<p id="message">{{message}}</p>	
+						<p id="error">{{error}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- MODAL END -->
+</div> 

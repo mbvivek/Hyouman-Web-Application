@@ -1,0 +1,260 @@
+<div ng-controller="personalInfoController" ng-init="initPersonalInfo()">
+    <div class="container-fluid">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend><h2>Personal Information</h2></legend>
+
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">Profile Picture</label><br/>
+                        <img class="img-rounded" width="200px" height="200px" style="padding:10px" 
+                        src="http://placehold.it/200x200" alt="Profile Picture">
+                    </div>
+                </div>
+                <hr/>
+
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">First Name</label>  
+                        <input ng-model="profile.firstName" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">Last Name</label>  
+                        <input ng-model="profile.lastName" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">Email</label>  
+                        <input ng-model="profile.email" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">Phone</label>  
+                        <input ng-model="profile.phone" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">Date Of Birth</label>
+                        <input value="{{profile.dob | date : format : shortDate}}" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label" >Gender</label>
+                        <input ng-model="profile.gender" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="control-label">Street Address</label>  
+                        <input ng-model="profile.street" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">City</label>  
+                        <input ng-model="profile.city" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">State</label>  
+                        <input ng-model="profile.state" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">Country</label>  
+                        <input ng-model="profile.country" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label class="control-label">ZIP Code</label>  
+                        <input ng-model="profile.zip" type="text" class="form-control input-md" readonly="readonly">
+                    </div>
+                </div>
+                <hr/>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-lg-4 col-md-4 col-sm-12" align="center">
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#changePictureModal" ng-click="editProfile()">
+                            Change Picture
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12" align="center">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#editProfileModal" ng-click="editProfile()">
+                            Edit Profile
+                        </button>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12" align="center">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" ng-click="editProfile()">
+                            Change Password
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- PROFILE PICTURE MODAL -->
+    <div class="modal fade" id="changePictureModal" tabindex="-1"
+    role="dialog" aria-labelledby="changePictureModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Change Profile Picture</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form" style="margin: 25px;">
+                        <div class="form-group center-block">
+                            <label>Upload / Change</label> <input type="file" accept="image/*"
+                            class="form-control center-block" style="max-width: 275px;"
+                            ng-model="profilePicture" required>
+                        </div>
+                        <button type="button" class="btn btn-primary"
+                        ng-click="updateProfile(tempProfile, '#changePictureModal')">Save</button>
+                    </form>
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="error">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+    <!-- EDIT PERSONAL INFO MODAL -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1"
+    role="dialog" aria-labelledby="editProfileModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Edit Profile</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form" style="margin: 25px;">
+                        <div class="row">
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>First Name</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.firstName" required>
+                            </div>
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Last Name</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.lastName" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Phone</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.phone" required>
+                            </div>
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Date of Birth</label> <input type="date"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.dob" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Street Address</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.street" required>
+                            </div>
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>City</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.city" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>State</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.state" required>
+                            </div>
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Country</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.country" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Zip Code</label> <input type="text"
+                                class="form-control center-block" style="max-width: 275px;"
+                                ng-model="tempProfile.zip" required>
+                            </div>
+                            <div class="form-group center-block col-lg-6 col-lg-6 col-md-6 col-sm-12">
+                                <label>Gender</label> 
+                                <select class="form-control" ng-model="tempProfile.gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"
+                        ng-click="updateProfile(tempProfile, '#editProfileModal')">Save</button>
+                    </form>
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="error">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1"
+    role="dialog" aria-labelledby="changePasswordModal"
+    style="background: rgba(0, 0, 0, 0.25)">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4>Change Password</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form" style="margin: 25px;">
+                        <div class="form-group center-block">
+                            <label>Current Password</label> <input type="password"
+                            class="form-control center-block" style="max-width: 275px;"
+                            name="currentPassword" ng-model="currentPassword" required>
+                        </div>
+                        <div class="form-group center-block">
+                            <label>New Password</label> <input type="password"
+                            class="form-control center-block" style="max-width: 275px;"
+                            name="newPassword" ng-model="newPassword" required>
+                        </div>
+                        <button type="button" class="btn btn-primary"
+                        ng-click="updateProfile(tempProfile, '#changePasswordModal')">Save</button>
+                    </form>
+                </div>
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer">
+                    <p id="error">{{error}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+</div>

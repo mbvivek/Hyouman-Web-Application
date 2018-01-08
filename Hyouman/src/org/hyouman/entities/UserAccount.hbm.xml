@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 24, 2017 1:11:45 AM by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="org.hyouman.entities.UserAccount" table="user_account" catalog="hyouman" optimistic-lock="version">
+        <id name="email" type="string">
+            <column name="email" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" length="100" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>
